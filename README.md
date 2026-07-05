@@ -15,6 +15,7 @@ Colección de páginas web (landing pages) de promoción y venta, desarrolladas 
 - CSS3 (variables, Grid, Flexbox, animaciones, diseño responsive)
 - JavaScript vainilla (sin frameworks)
 - Diseño accesible (aria-label, focus-visible, prefers-reduced-motion)
+  
 ## Ver en vivo
 
 https://saczcr.github.io/landing-pages-portfolio/ia-heroes/
