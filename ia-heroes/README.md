@@ -28,9 +28,6 @@ landing-ia-heroes/
 └── README.md
 ```
 
-## Cómo verlo en vivo (GitHub Pages)
+## Ver en vivo
 
-1. Sube este repositorio a tu cuenta de GitHub.
-2. Ve a Settings → Pages.
-3. En "Branch", selecciona main y carpeta /root, guarda.
-4. En un par de minutos, GitHub te da un link público (https://tuusuario.github.io/landing-ia-heroes/).
+https://saczcr.github.io/landing-pages-portfolio/ia-heroes/
