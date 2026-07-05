@@ -29,7 +29,7 @@ landing-car-detailing/
 
 ## Ver en vivo
 
-https://saczcr.github.io/landing-pages-portfolio/ia-heroes/
+https://saczcr.github.io/landing-pages-portfolio/car-detailing/
 
 ## Nota
 
