@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA Heroes — Domina la Inteligencia Artificial Aplicada</title>
+<style>
+  :root{
+    --bg: #0B0E14;
+    --bg-soft: #11151F;
+    --ink: #EDEFF5;
+    --ink-dim: #9AA1B4;
+    --signal: #FF5A36;      /* señal / circuito activo */
+    --signal-soft: #FF8A65;
+    --volt: #C9FF3A;        /* acento secundario, uso muy puntual */
+    --line: #232838;
+    --card: #141926;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  @font-face{
+    font-family:'Display';
+    src:local('Arial Black');
+  }
+  h1,h2,h3{
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    letter-spacing:-0.02em;
+    font-weight:700;
+  }
+  a{text-decoration:none; color:inherit;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 24px;}
+
+  /* circuit background */
+  .circuit-bg{
+    position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.35;
+  }
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(11,14,20,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px; max-width:1120px; margin:0 auto;
+  }
+  .logo{font-size:18px; font-weight:800; letter-spacing:0.02em;}
+  .logo span{color:var(--signal);}
+  .nav-links{display:flex; gap:28px; font-size:14px; color:var(--ink-dim);}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-cta{
+    background:var(--signal); color:#0B0E14; padding:10px 18px;
+    border-radius:6px; font-weight:700; font-size:14px;
+  }
+  @media(max-width:720px){ .nav-links{display:none;} }
+
+  /* HERO */
+  .hero{
+    position:relative; z-index:1;
+    padding:96px 24px 80px;
+    text-align:center;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:13px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--signal-soft); font-weight:600;
+    border:1px solid var(--line); padding:6px 14px; border-radius:999px;
+    margin-bottom:28px;
+  }
+  .eyebrow::before{
+    content:''; width:7px; height:7px; border-radius:50%;
+    background:var(--volt); box-shadow:0 0 8px var(--volt);
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 6vw, 4.6rem);
+    line-height:1.04;
+    max-width:880px; margin:0 auto 22px;
+  }
+  .hero h1 .accent{color:var(--signal);}
+  .hero p.lead{
+    max-width:620px; margin:0 auto 36px;
+    color:var(--ink-dim); font-size:18px;
+  }
+  .cta-row{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:18px;}
+  .btn{
+    display:inline-block; padding:16px 32px; border-radius:8px;
+    font-weight:700; font-size:16px; transition:transform .15s ease;
+  }
+  .btn-primary{
+    background:var(--signal); color:#0B0E14;
+  }
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-ghost{
+    border:1px solid var(--line); color:var(--ink);
+  }
+  .btn-ghost:hover{border-color:var(--ink-dim);}
+  .hero-note{font-size:13px; color:var(--ink-dim);}
+
+  /* TICKER */
+  .ticker-wrap{
+    border-bottom:1px solid var(--line);
+    background:var(--bg-soft);
+    overflow:hidden; white-space:nowrap;
+    padding:14px 0;
+  }
+  .ticker{
+    display:inline-block;
+    animation: scroll 28s linear infinite;
+    font-size:14px; color:var(--ink-dim); letter-spacing:0.04em;
+  }
+  .ticker b{color:var(--ink); font-weight:700;}
+  @keyframes scroll{
+    0%{transform:translateX(0);}
+    100%{transform:translateX(-50%);}
+  }
+  @media(prefers-reduced-motion: reduce){ .ticker{animation:none;} }
+
+  /* SECTION GENERIC */
+  section{position:relative; z-index:1; padding:88px 24px;}
+  .section-head{max-width:640px; margin:0 0 52px;}
+  .section-head .tag{
+    font-size:13px; color:var(--signal-soft); font-weight:700;
+    letter-spacing:0.06em; text-transform:uppercase; margin-bottom:12px; display:block;
+  }
+  .section-head h2{font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:14px;}
+  .section-head p{color:var(--ink-dim); font-size:16px;}
+
+  /* TIMELINE - real sequence (4 días) */
+  .timeline{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:16px;
+  }
+  @media(max-width:880px){ .timeline{grid-template-columns:1fr 1fr;} }
+  @media(max-width:520px){ .timeline{grid-template-columns:1fr;} }
+  .day-card{
+    background:var(--card); border:1px solid var(--line); border-radius:10px;
+    padding:24px 20px; position:relative;
+  }
+  .day-card .day-n{
+    font-family:'Space Grotesk',sans-serif; font-size:13px; color:var(--signal);
+    font-weight:700; margin-bottom:14px; letter-spacing:0.04em;
+  }
+  .day-card h3{font-size:17px; margin-bottom:10px;}
+  .day-card p{font-size:14px; color:var(--ink-dim);}
+  .day-card::after{
+    content:''; position:absolute; top:0; left:0; width:100%; height:2px;
+    background:linear-gradient(90deg, var(--signal), transparent);
+  }
+
+  /* SKILLS GRID */
+  .skills-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden;
+  }
+  @media(max-width:880px){ .skills-grid{grid-template-columns:1fr;} }
+  .skill{background:var(--bg-soft); padding:32px 28px;}
+  .skill h3{font-size:18px; margin-bottom:10px; display:flex; align-items:center; gap:10px;}
+  .skill h3 .dot{width:8px;height:8px;border-radius:50%;background:var(--volt);}
+  .skill p{color:var(--ink-dim); font-size:14px;}
+
+  /* WHY / SOCIAL PROOF STRIP */
+  .proof{
+    background:var(--bg-soft); border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .proof .wrap{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:32px; padding:56px 24px;
+    text-align:center;
+  }
+  @media(max-width:720px){ .proof .wrap{grid-template-columns:1fr;} }
+  .proof .stat b{
+    display:block; font-family:'Space Grotesk',sans-serif; font-size:2.4rem; color:var(--signal);
+  }
+  .proof .stat span{color:var(--ink-dim); font-size:14px;}
+
+  /* PROGRAMA / CURSO */
+  .program{
+    display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;
+  }
+  @media(max-width:880px){ .program{grid-template-columns:1fr;} }
+  .program-card{
+    background:var(--card); border:1px solid var(--line); border-radius:14px; padding:36px;
+  }
+  .program-card h3{font-size:22px; margin-bottom:18px;}
+  .program-row{
+    display:flex; justify-content:space-between; padding:14px 0; border-top:1px solid var(--line);
+    font-size:14px; color:var(--ink-dim);
+  }
+  .program-row b{color:var(--ink); font-weight:600;}
+
+  /* FAQ */
+  .faq-item{
+    border-top:1px solid var(--line); padding:22px 0;
+  }
+  .faq-item:last-child{border-bottom:1px solid var(--line);}
+  .faq-item summary{
+    cursor:pointer; font-weight:600; font-size:16px; list-style:none;
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary::after{content:'+'; font-size:22px; color:var(--signal); transition:transform .2s;}
+  .faq-item[open] summary::after{transform:rotate(45deg);}
+  .faq-item p{margin-top:14px; color:var(--ink-dim); font-size:14px; max-width:680px;}
+
+  /* FINAL CTA */
+  .final-cta{
+    text-align:center; padding:100px 24px;
+    background:radial-gradient(ellipse at center, rgba(255,90,54,0.12), transparent 70%);
+    border-top:1px solid var(--line);
+  }
+  .final-cta h2{font-size:clamp(1.8rem,5vw,3rem); margin-bottom:18px;}
+  .final-cta p{color:var(--ink-dim); max-width:520px; margin:0 auto 36px;}
+
+  footer{
+    border-top:1px solid var(--line); padding:36px 24px; text-align:center;
+    color:var(--ink-dim); font-size:13px;
+  }
+  footer p{margin-bottom:6px;}
+
+  :focus-visible{outline:2px solid var(--signal); outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<svg class="circuit-bg" viewBox="0 0 1200 800" preserveAspectRatio="none" aria-hidden="true">
+  <defs>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M60 0 L0 0 0 60" fill="none" stroke="#1B2030" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="800" fill="url(#grid)"/>
+  <path d="M0 120 H 220 V 260 H 460 V 90 H 720" stroke="#FF5A36" stroke-opacity="0.25" stroke-width="2" fill="none"/>
+  <path d="M1200 500 H 980 V 360 H 760" stroke="#C9FF3A" stroke-opacity="0.18" stroke-width="2" fill="none"/>
+  <circle cx="220" cy="120" r="4" fill="#FF5A36" fill-opacity="0.5"/>
+  <circle cx="460" cy="260" r="4" fill="#FF5A36" fill-opacity="0.5"/>
+  <circle cx="980" cy="500" r="4" fill="#C9FF3A" fill-opacity="0.4"/>
+</svg>
+
+<header>
+  <nav>
+    <div class="logo">IA <span>HEROES</span></div>
+    <div class="nav-links">
+      <a href="#evento">El evento</a>
+      <a href="#curso">El programa</a>
+      <a href="#preguntas">Preguntas</a>
+    </div>
+    <a href="#" class="nav-cta">Reservar lugar</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">4 días en vivo · 100% online · Habla hispana</div>
+  <h1>Aprende a usar la <span class="accent">Inteligencia Artificial</span><br>antes de que la IA decida sin ti</h1>
+  <p class="lead">IA Heroes Live es el evento en vivo más grande de habla hispana sobre IA aplicada. En 4 días vas a multiplicar tu productividad, crear tus propios agentes sin programar y dar el primer paso para posicionarte como profesional en herramientas de IA.</p>
+  <div class="cta-row">
+    <a href="#" class="btn btn-primary">Quiero mi lugar en el evento</a>
+    <a href="#curso" class="btn btn-ghost">Ver el programa completo</a>
+  </div>
+  <p class="hero-note">Cupo limitado por edición · Organizado por Learning Heroes</p>
+</section>
+
+<div class="ticker-wrap">
+  <div class="ticker">
+    <b>Productividad con IA</b> &nbsp;·&nbsp; <b>Agentes sin programar</b> &nbsp;·&nbsp; <b>Nuevas fuentes de ingreso</b> &nbsp;·&nbsp; <b>4 días en vivo</b> &nbsp;·&nbsp; <b>Comunidad LATAM + España</b> &nbsp;·&nbsp;
+    <b>Productividad con IA</b> &nbsp;·&nbsp; <b>Agentes sin programar</b> &nbsp;·&nbsp; <b>Nuevas fuentes de ingreso</b> &nbsp;·&nbsp; <b>4 días en vivo</b> &nbsp;·&nbsp; <b>Comunidad LATAM + España</b> &nbsp;·&nbsp;
+  </div>
+</div>
+
+<section id="evento">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">El evento</span>
+      <h2>4 días, una hoja de ruta clara</h2>
+      <p>Cada jornada construye sobre la anterior: empiezas usando la IA en tu día a día y terminas con la base para convertirla en una habilidad profesional.</p>
+    </div>
+    <div class="timeline">
+      <div class="day-card">
+        <div class="day-n">DÍA 01</div>
+        <h3>Fundamentos y productividad</h3>
+        <p>Cómo integrar IA en tareas reales para ahorrar horas de trabajo desde el primer día.</p>
+      </div>
+      <div class="day-card">
+        <div class="day-n">DÍA 02</div>
+        <h3>Herramientas clave</h3>
+        <p>Mapa de las herramientas de IA más útiles según tu perfil: personal, profesional o de negocio.</p>
+      </div>
+      <div class="day-card">
+        <div class="day-n">DÍA 03</div>
+        <h3>Agentes de IA sin programar</h3>
+        <p>Construye tu primer agente automatizando una tarea concreta, paso a paso.</p>
+      </div>
+      <div class="day-card">
+        <div class="day-n">DÍA 04</div>
+        <h3>Tu próximo paso</h3>
+        <p>Cómo convertir lo aprendido en una nueva fuente de ingresos o en una ventaja dentro de tu trabajo actual.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proof">
+  <div class="wrap">
+    <div class="stat">
+      <b>+1</b>
+      <span>edición anterior con histórico de ventas validado</span>
+    </div>
+    <div class="stat">
+      <b>4</b>
+      <span>días de formación en vivo, 100% online</span>
+    </div>
+    <div class="stat">
+      <b>LATAM+ES</b>
+      <span>comunidad activa de habla hispana</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">Qué te llevas</span>
+      <h2>Tres habilidades, un mismo eje: la IA aplicada</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill">
+        <h3><span class="dot"></span>Productividad</h3>
+        <p>Reduce el tiempo que dedicas a tareas repetitivas usando IA en tu trabajo diario, sin importar tu industria.</p>
+      </div>
+      <div class="skill">
+        <h3><span class="dot"></span>Agentes de IA</h3>
+        <p>Diseña tus propios agentes para automatizar procesos, sin necesidad de saber programar.</p>
+      </div>
+      <div class="skill">
+        <h3><span class="dot"></span>Nuevos ingresos</h3>
+        <p>Aprende a posicionarte como profesional en herramientas de IA y abrir nuevas oportunidades laborales.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="curso">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="tag">El programa completo</span>
+      <h2>IA Heroes PRO X</h2>
+      <p>Si el evento es la puerta de entrada, PRO X es el camino completo: un año de formación para dominar la IA aplicada con acompañamiento constante.</p>
+    </div>
+    <div class="program">
+      <div>
+        <p style="color:var(--ink-dim); font-size:15px; margin-bottom:16px;">Pensado para quienes quieren ir más allá de una introducción y construir una habilidad sólida y sostenida en el tiempo, con clases en vivo y una comunidad activa de práctica.</p>
+        <a href="#" class="btn btn-primary">Conocer IA Heroes PRO X</a>
+      </div>
+      <div class="program-card">
+        <h3>Estructura del programa</h3>
+        <div class="program-row"><span>Duración total</span><b>1 año</b></div>
+        <div class="program-row"><span>Primeros 3 meses</span><b>2 clases en vivo / semana</b></div>
+        <div class="program-row"><span>Resto del programa</span><b>1 clase en vivo / semana</b></div>
+        <div class="program-row"><span>Modalidad</span><b>100% online</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="preguntas">
+  <div class="wrap" style="max-width:760px;">
+    <div class="section-head">
+      <span class="tag">Preguntas frecuentes</span>
+      <h2>Antes de inscribirte</h2>
+    </div>
+
+    <details class="faq-item" open>
+      <summary>¿Necesito experiencia previa con tecnología o programación?</summary>
+      <p>No. El evento y el programa están diseñados para empezar desde cero, sin necesidad de conocimientos técnicos previos.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿El evento es en vivo o grabado?</summary>
+      <p>IA Heroes Live se transmite en vivo durante 4 días. El programa PRO X combina clases en vivo semanales a lo largo de un año.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Para quién es este programa?</summary>
+      <p>Para emprendedores, profesionales independientes y empleados que buscan reconvertirse digitalmente, principalmente en LATAM y España.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Dónde veo precios y condiciones de inscripción?</summary>
+      <p>Los precios, descuentos y condiciones comerciales se comunican únicamente dentro del proceso oficial de inscripción al hacer clic en los botones de esta página.</p>
+    </details>
+  </div>
+</section>
+
+<section class="final-cta">
+  <h2>Tu lugar en la conversación sobre IA empieza aquí</h2>
+  <p>Reserva tu cupo para IA Heroes Live y conoce el camino completo con IA Heroes PRO X.</p>
+  <div class="cta-row">
+    <a href="#" class="btn btn-primary">Reservar mi lugar ahora</a>
+  </div>
+</section>
+
+<footer>
+  <p>IA Heroes Live · IA Heroes PRO X — un programa de Learning Heroes</p>
+  <p>Esta es una página de promoción independiente. Las condiciones oficiales, precios y términos de inscripción se gestionan en el sitio oficial de Learning Heroes / Hotmart.</p>
+</footer>
+
+</body>
+</html>
